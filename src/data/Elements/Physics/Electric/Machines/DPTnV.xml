@@ -1,0 +1,41 @@
+<elem description="This block represents a DC motor with external excitation winding.
+Input: mechanical torque in N*m.
+Output: angular velocity in rad/sec." view="DPTnV.png" name="DC motor">
+    <Connections>
+        <pin domain="elec" name="es1" x=31 y=4>
+            <init name="SCurr" title="Stator current" var="es1.f">0</init>
+        </pin>
+        <pin domain="elec" name="es2" x=31 y=66></pin>
+        <pin domain="elec" name="er1" x=11 y=4>
+            <init name="RCurr" title="Rotor current" var="er1.f">0</init>
+        </pin>
+        <pin domain="elec" name="er2" x=11 y=66></pin>
+        <pin domain="rot" name="r1" x=41 y=35></pin>
+        <pin domain="rot" name="r2" x=4 y=35></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Rya" type="2" title="Rotor reluctance">0.1</parm>
+        <parm name="Lya" type="2" title="Rotor inductance">0.001</parm>
+        <parm name="J0" type="2" title="Inertia">10</parm>
+        <parm name="Cm" type="2" title="Cm">10</parm>
+        <parm name="Cw" type="2" title="Cw">10</parm>
+        <parm name="Rf" type="2" title="Stator reluctance">0.1</parm>
+        <parm name="Lf" type="2" title="Stator inductance">0.1</parm>
+    </Parameters>
+    <Workspace>
+        <var name="X" type=1>
+            <init name="velocity" title="Anrular velocity">0</init>
+        </var>
+    </Workspace>
+    <InternalFlow>
+        <sum>es1;es2</sum>
+        <sum>er1;er2</sum>
+        <sum>r1;r2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>X = r1.p-r2.p</equ>
+        <equ>d.es1.f = (es1.p-es2.p - Cw*X*er1.f*Lf - es1.f*Rya)/Lya</equ>
+        <equ>d.X = (es1.f*er1.f*Lf*Cm - r1.f)/J0</equ>
+        <equ>d.er1.f = (er1.p - er2.p - Rf*er1.f)/Lf</equ>
+    </Equations>
+</elem>

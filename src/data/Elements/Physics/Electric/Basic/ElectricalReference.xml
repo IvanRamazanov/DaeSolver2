@@ -1,0 +1,8 @@
+<elem description="This block represents an electrical reference." view="ElectricalReference.png">
+    <Connections>
+        <pin domain="elec" name="pref" x=7 y=0></pin>
+    </Connections>
+    <InternalFlow>
+        <sum>pref;*</sum>
+    </InternalFlow>
+</elem>

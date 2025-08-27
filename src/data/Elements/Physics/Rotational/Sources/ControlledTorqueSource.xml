@@ -1,0 +1,13 @@
+<elem description="Produces constant torque equalve value from mathematical input" view="ControlledTorqueSource.png" name="Controlled torque source">
+    <Connections>
+        <pin domain="rot" name="p1" x=17 y=0></pin>
+        <pin domain="rot" name="p2" x=17 y=54></pin>
+        <pin domain="math" name="inp" x=0 y=27 direction="in"></pin>
+    </Connections>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p2.f = inp</equ>
+    </Equations>
+</elem>

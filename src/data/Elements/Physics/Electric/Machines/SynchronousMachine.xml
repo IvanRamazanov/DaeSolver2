@@ -1,0 +1,50 @@
+<elem description="Synchronous motor without damper winding" view="SynchronousMachine.png" name="Synchronous machine">
+    <Connections>
+        <pin domain="elec" name="A" x=9 y=4>
+            <init name="CurrentA" title="Stator current, ph. A" var="A.f">0</init>
+        </pin>
+        <pin domain="elec" name="B" x=25 y=4>
+            <init name="CurrentB" title="Stator current, ph. B" var="B.f">0</init>
+        </pin>
+        <pin domain="elec" name="C" x=40 y=4></pin>
+        <pin domain="elec" name="fd1" x=9 y=63>
+            <init name="CurrentF" title="Rotor current" var="fd1.f">0</init>
+        </pin>
+        <pin domain="elec" name="fd2" x=40 y=63></pin>
+        <pin domain="rot" name="r1" x=45 y=35></pin>
+        <pin domain="rot" name="r2" x=4 y=35></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Lls" type=2 title="Stator leakage inductanse">1.273e-5</parm>
+        <parm name="Lmd" type=2 title="d-axis mutual inductance">0.0005246</parm>
+        <parm name="Lmq" type=2 title="q-axis mutual inductance">0.0003845</parm>
+        <parm name="Pp" type=2 title="pole pairs">2</parm>
+        <parm name="Rf" type=2 title="excitation winding resistance">0.0001576</parm>
+        <parm name="Rs" type=2 title="Stator resistance">0.00076</parm>
+        <parm name="Llf" type=2 title="rotor leakage inductance">8.703e-5</parm>
+        <parm name="J" type=2 title="Inertia">49.81</parm>
+        <parm name="F" type=2 title="Friction">0.8</parm>
+    </Parameters>
+    <Workspace>
+        <var name="X" type=1>
+            <init name="speed" title="Speed">0</init>
+        </var>
+        <var name="theta" type=1>
+            <init name="theta" title="Rotor angle">0</init>
+        </var>
+    </Workspace>
+    <InternalFlow>
+        <sum>A;B;C</sum>
+        <sum>fd1;fd2</sum>
+        <sum>r1;r2</sum>
+    </InternalFlow>
+    <Equations>
+        <var name="M">(3*Pp*(((Lls+Lmd)*((2*A.f*cos(theta))/3+(2*B.f*cos((2*pi)/3-theta))/3-(2*cos((2*pi)/3+theta)*(A.f+B.f))/3)+fd1.f*Lmd)*((2*B.f*sin((2*pi)/3-theta))/3-(2*A.f*sin(theta))/3+(2*sin((2*pi)/3+theta)*(A.f+B.f))/3)-(Lls+Lmq)*((2*A.f*cos(theta))/3+(2*B.f*cos((2*pi)/3-theta))/3-(2*cos((2*pi)/3+theta)*(A.f+B.f))/3)*((2*B.f*sin((2*pi)/3-theta))/3-(2*A.f*sin(theta))/3+(2*sin((2*pi)/3+theta)*(A.f+B.f))/3)))/2</var>
+        <equ>X = r1.p-r2.p</equ>
+        <equ>Rs*((2*A.f*cos(theta))/3+(2*B.f*cos((2*pi)/3-theta))/3-(2*cos((2*pi)/3+theta)*(A.f+B.f))/3)+Lmd*d.fd1.f-(2*A.p*cos(theta))/3-(2*B.p*cos((2*pi)/3-theta))/3-(2*C.p*cos((2*pi)/3+theta))/3+X*(Lls+Lmd)*((2*Pp*sin((2*pi)/3+theta)*(A.f+B.f))/3-(2*A.f*Pp*sin(theta))/3+(2*B.f*Pp*sin((2*pi)/3-theta))/3)-X*(Lls+Lmq)*((2*B.f*sin((2*pi)/3-theta))/3-(2*A.f*sin(theta))/3+(2*sin((2*pi)/3+theta)*(A.f+B.f))/3)+d.A.f*(Lls+Lmd)*((2*cos(theta))/3-(2*cos((2*pi)/3+theta))/3)-d.B.f*((2*cos((2*pi)/3+theta))/3-(2*cos((2*pi)/3-theta))/3)*(Lls+Lmd)=0</equ>
+        <equ>(2*A.p*sin(theta))/3+Rs*((2*B.f*sin((2*pi)/3-theta))/3-(2*A.f*sin(theta))/3+(2*sin((2*pi)/3+theta)*(A.f+B.f))/3)-(2*B.p*sin((2*pi)/3-theta))/3+(2*C.p*sin((2*pi)/3+theta))/3+X*((Lls+Lmd)*((2*A.f*cos(theta))/3+(2*B.f*cos((2*pi)/3-theta))/3-(2*cos((2*pi)/3+theta)*(A.f+B.f))/3)+fd1.f*Lmd)-X*(Lls+Lmq)*((2*A.f*Pp*cos(theta))/3-(2*Pp*cos((2*pi)/3+theta)*(A.f+B.f))/3+(2*B.f*Pp*cos((2*pi)/3-theta))/3)-d.A.f*((2*sin(theta))/3-(2*sin((2*pi)/3+theta))/3)*(Lls+Lmq)+d.B.f*((2*sin((2*pi)/3+theta))/3+(2*sin((2*pi)/3-theta))/3)*(Lls+Lmq)=0</equ>
+        <equ>fd1.p-fd2.p = d.fd1.f*(Llf+Lmd)+fd1.f*Rf+Lmd*d.A.f*((2*cos(theta))/3-(2*cos((2*pi)/3+theta))/3)-Lmd*d.B.f*((2*cos((2*pi)/3+theta))/3-(2*cos((2*pi)/3-theta))/3)+Lmd*X*((2*Pp*sin((2*pi)/3+theta)*(A.f+B.f))/3-(2*A.f*Pp*sin(theta))/3+(2*B.f*Pp*sin((2*pi)/3-theta))/3)</equ>
+        <equ>d.X = (M - r1.f - F*X)/J</equ>
+        <equ>d.theta = X*Pp</equ>
+    </Equations>
+</elem>

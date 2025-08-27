@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Qt App (MinGW)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug/DaeSolver.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/debug/",
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "C:/dev/qt-src-6.9.0/qtbase/bin;${env:PATH}"
+        }
+      ],
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:/mingw64/bin/gdb.exe"
+    }
+  ]
+}

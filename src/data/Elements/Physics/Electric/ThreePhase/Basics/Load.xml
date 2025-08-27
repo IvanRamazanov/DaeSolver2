@@ -1,0 +1,20 @@
+<elem description="Star connected active load" view="Load.png" name="Three-phase Load">
+    <Connections>
+        <pin domain="elec" name="p1" x=25 y=66></pin>
+        <pin domain="elec_3ph" name="p2" x=25 y=5></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Ra" type=2 title="Res phase A, Ohm">10</parm>
+        <parm name="Rb" type=2 title="Res phase B, Ohm">10</parm>
+        <parm name="Rc" type=2 title="Res phase C, Ohm">10</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+        <!-- "i.1+i.2+i.3+i.4=0" -->
+    </InternalFlow>
+    <Equations>
+        <equ>p2.p[1]-p1.p = Ra * p2.f[1]</equ>
+        <equ>p2.p[2]-p1.p = Rb * p2.f[2]</equ>
+        <equ>p2.p[3]-p1.p = Rc * p2.f[3]</equ>
+    </Equations>
+</elem>

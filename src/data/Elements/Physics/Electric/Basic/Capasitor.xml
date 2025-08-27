@@ -1,0 +1,21 @@
+<elem description="This block represents electrical capacitance." view="Capasitor.png">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=0></pin>
+        <pin domain="elec" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="C" type=2 title="Capasitance">0.01</parm>
+    </Parameters>
+    <Workspace>
+        <var name="X" type=1>
+            <init name="Voltage" title="Voltage">0</init>
+        </var>
+    </Workspace>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.f=d.X*C</equ>
+        <equ>X=p1.p-p2.p</equ>
+    </Equations>
+</elem>

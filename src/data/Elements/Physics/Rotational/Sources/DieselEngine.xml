@@ -1,0 +1,20 @@
+<elem description="Mid-speed turbo diesel engine" view="DieselEngine.png" name="Diesel engine">
+    <Connections>
+        <pin domain="rot" name="p1" x=40 y=30></pin>
+        <pin domain="rot" name="p2" x=4 y=30>
+            <init name="torq" title="Initial torque" var="p2.f">0</init>
+        </pin>
+        <pin domain="math" name="inp" x=0 y=0 direction="in"></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Pn" type="2" title="Nominal power, kW">50</parm>
+        <parm name="wn" type="2" title="Rated speed, rpm">1500</parm>
+        <parm name="Tde" type="2" title="Engine time constant, 1/sec">20</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>d.p2.f=(inp*Pn*1000/(wn*2*pi/60)-p2.f)/Tde</equ>
+    </Equations>
+</elem>

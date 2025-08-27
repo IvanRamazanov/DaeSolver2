@@ -1,0 +1,18 @@
+<domains>
+    <elec name="Electric" color="#b87333">
+        <pin>:/src/data/Pins/ElectricPin.svg</pin>
+        <marker>:/src/data/Connections/ElectricMrk.svg</marker>
+    </elec>
+    <elec_3ph name="Electric 3-phase" color="#0505ff" size=3 type="elec">
+        <pin>:/src/data/Pins/Elect3PhPin.svg</pin>
+        <marker>:/src/data/Connections/Elect3PhMrk.svg</marker>
+    </elec_3ph>
+    <math name="Discrete" color="#000000" discrete=true>
+        <pin>:/src/data/Pins/MathPin.svg</pin>
+        <marker>:/src/data/Connections/MathMrk.svg</marker>
+    </math>
+    <rot name="Mechanical" color="#949899">
+        <pin>:/src/data/Pins/MechPin.svg</pin>
+        <marker>:/src/data/Connections/MechMrk.svg</marker>
+    </rot>
+</domains>

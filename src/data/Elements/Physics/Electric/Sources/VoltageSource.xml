@@ -1,0 +1,16 @@
+<elem description="This block represents a constant voltage source." view="VoltageSource.png">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=0></pin>
+        <pin domain="elec" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="V" type="2" title="Voltage">15</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p - p2.p = V</equ>
+    </Equations>
+</elem>
+

@@ -1,0 +1,22 @@
+<elem description="This block represents three-phase short circuit that triggers at T_on moment of simulation time." view="Fault.png" name="Three phase fault">
+    <Connections>
+        <pin domain="elec_3ph" name="p1" x=25 y=4></pin>
+    </Connections>
+    <Parameters>
+        <parm name="fTime" type=2 title="Fault time">1</parm>
+        <parm name="R_on" type=2 title="Short circuit resistance">0.001</parm>
+        <parm name="R_off" type=2 title="Off resistance">1e6</parm>
+    </Parameters>
+    <Workspace>
+        <var name="Z" type=1></var>
+    </Workspace>
+    <InternalFlow>
+        <sum>p1</sum>
+        <!-- "i.1+i.2+i.3=0" -->
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p[1] = Z.p + if(gr(time, fTime), R_on, R_off) * p1.f[1]</equ>
+        <equ>p1.p[2] = Z.p + if(gr(time, fTime), R_on, R_off) * p1.f[2]</equ>
+        <equ>p1.p[3] = Z.p + if(gr(time, fTime), R_on, R_off) * p1.f[3]</equ>
+    </Equations>
+</elem>

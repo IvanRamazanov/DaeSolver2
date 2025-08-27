@@ -1,0 +1,29 @@
+<CircuitBreaker view="CircuitBreaker.png" description="This block represents a circuit breaker.
+When current, that flows throw this block, reaches threshold value, this block would break electric circuit.">
+    <Connections>
+        <pin domain="elec" x=7 y=0 name="in"></pin>
+        <pin domain="elec" x=7 y=54 name="out"></pin>
+        <!--<pin domain="discr" name="active" hidden=true direction="in"></pin>
+        <pin domain="discr" name="curr" hidden=true direction="out"></pin> -->
+    </Connections>
+    <Parameters>
+        <parm name="max_curr" type=2 title="Max curr, A">15</parm>
+    </Parameters>
+    <Workspace>
+        <var name="flag" type=2 data_type="bool">false</var>
+    </Workspace>
+    <InternalFlow>
+        <sum>in;out</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>in.p - out.p = in.f * if(flag, 10000, 0.001)</equ>
+    </Equations>
+    <Descrete>
+    // state latches when triggered
+    if(!flag){
+        if(math::abs(*in.f) > max_curr.getValue())  {
+            flag=true;
+        }
+    }
+    </Descrete>
+</CircuitBreaker>

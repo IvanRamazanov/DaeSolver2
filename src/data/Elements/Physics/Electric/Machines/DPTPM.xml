@@ -1,0 +1,34 @@
+<elem description="This block represents a DC motor with permanent magnets on stator.
+Input: mechanical torque in N*m.
+Output: angular velocity in rad/sec." view="DPTPM.png" name="DC PM motor">
+    <Connections>
+        <pin domain="elec" name="p1" x=31 y=4>
+            <init name="Current" title="Current" var="p1.f">0</init>
+        </pin>
+        <pin domain="elec" name="p2" x=31 y=66></pin>
+        <pin domain="rot" name="r1" x=40 y=40></pin>
+        <pin domain="rot" name="r2" x=4 y=40></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Rya" type=2 title="Rotor reluctance">0.6</parm>
+        <parm name="Lya" type=2 title="Rotor inductance">0.012</parm>
+        <parm name="J0" type=2 title="Inertia">1</parm>
+        <parm name="Cm" type=2 title="Cm">1.8</parm>
+        <parm name="Cw" type=2 title="Cw">1.8</parm>
+        <parm name="F" type=2 title="Flux">1</parm>
+    </Parameters>
+    <Workspace>
+        <var name="X" type=1>
+            <init name="speed" title="Rotational speed">0</init>
+        </var>
+    </Workspace>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+        <sum>r1;r2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>X = r1.p-r2.p</equ>
+        <equ>d.p1.f = (p1.p-p2.p - Cw*X*F - p1.f*Rya)/Lya</equ>
+        <equ>d.X = (p1.f*F*Cm - r2.f)/J</equ>
+    </Equations>
+</elem>

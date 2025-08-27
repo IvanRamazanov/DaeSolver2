@@ -1,0 +1,14 @@
+<elem description="This block represents a controlled voltage source.
+An output value in volts is equal to input port value." view="ControlledVoltage.png">
+    <Connections>
+        <pin domain="elec" name="p1" x=12 y=5></pin>
+        <pin domain="elec" name="p2" x=12 y=60></pin>
+        <pin domain="math" name="V" x=0 y=27 direction="in"></pin>
+    </Connections>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p - p2.p = V</equ>
+    </Equations>
+</elem>

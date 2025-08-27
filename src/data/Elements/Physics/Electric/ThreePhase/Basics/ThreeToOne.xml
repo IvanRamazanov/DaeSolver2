@@ -1,0 +1,18 @@
+<elem description="Transfer between threephase and single phase circiuts" view="ThreeToOne.png" name="Three-to-one phase">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=10></pin>
+        <pin domain="elec" name="p2" x=7 y=35></pin>
+        <pin domain="elec" name="p3" x=7 y=55></pin>
+        <pin domain="elec_3ph" name="L" x=45 y=35></pin>
+    </Connections>
+    <InternalFlow>
+        <sum by_var=1>p1.f;L.f[1]</sum>
+        <sum by_var=1>p2.f;L.f[2]</sum>
+        <sum by_var=1>p3.f;L.f[3]</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p-L.p[1]=0</equ>
+        <equ>p2.p-L.p[2]=0</equ>
+        <equ>p3.p-L.p[3]=0</equ>
+    </Equations>
+</elem>

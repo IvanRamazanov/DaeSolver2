@@ -1,0 +1,43 @@
+<elem description="This block represents a synchronous AC machine with permanent magnets on rotor.
+Input: mechanical torque in N*m.
+Output: angular velocity in rad/sec." view="SDPM.png" name="Synchronous motor (PM)">
+    <Connections>
+        <pin domain="elec" name="A" x=9 y=4>
+            <init name="CurrentA" title="Stator current, ph. A" var="A.f">0</init>
+        </pin>
+        <pin domain="elec" name="B" x=25 y=4>
+            <init name="CurrentB" title="Stator current, ph. B" var="B.f">0</init>
+        </pin>
+        <pin domain="elec" name="C" x=40 y=4></pin>
+        <pin domain="rot" name="r1" x=45 y=35></pin>
+        <pin domain="rot" name="r2" x=4 y=35></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Rs" type=2 title="Stator resistance per phase, Rs">0.18</parm>
+        <parm name="Ls" type=2 title="Stator phase inductance, Ls">8.5e-3</parm>
+        <parm name="J" type=2 title="Inertia">0.00062</parm>
+        <parm name="KsiM" type=2 title="Flux linkage established by magnets">0.07145</parm>
+        <parm name="Zp" type=2 title="Number of permanent magnet pole pairs on the rotor">4</parm>
+        <parm name="Fc" type=2 title="Friction">0</parm>
+    </Parameters>
+    <Workspace>
+        <var name="X" type=1>
+            <init name="speed" title="Speed, rad/sec">78.5</init>
+        </var>
+        <var name="theta" type=1>
+            <init name="theta" title="Rotor angle">0</init>
+        </var>
+    </Workspace>
+    <InternalFlow>
+        <sum>A;B;C</sum>
+        <sum>r1;r2</sum>
+    </InternalFlow>
+    <Equations>
+        <var name="M">Zp*KsiM*(cos(theta)*A.f+cos(theta+2/3*pi)*B.f-cos(theta+4/3*pi)*(A.f+B.f))</var>
+        <equ>X = r1.p-r2.p</equ>
+        <equ>d.A.f = 1/(3*Ls)*(2*(A.p-B.p) + B.p-C.p - 3*Rs*A.f + KsiM*Zp*X*(cos(theta+2/3*pi)-2*cos(theta)+cos(theta+4/3*pi)))</equ>
+        <equ>d.B.f = 1/(3*Ls)*(B.p-A.p + B.p-C.p - 3*Rs*B.f + KsiM*Zp*X*(cos(theta)-2*cos(theta+2/3*pi)+cos(theta+4/3*pi)))</equ>
+        <equ>d.X = (M - r1.f - Fc*X)/J</equ>
+        <equ>d.theta = X*Zp</equ>
+    </Equations>
+</elem>

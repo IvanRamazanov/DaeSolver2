@@ -1,0 +1,15 @@
+<Resistor description="This block represents an electrical resistance." view="Resistor.png">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=0></pin>
+        <pin domain="elec" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="R" type="2" title="Resistance">10</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p2.f = (p2.p - p1.p)/R</equ>
+    </Equations>
+</Resistor>

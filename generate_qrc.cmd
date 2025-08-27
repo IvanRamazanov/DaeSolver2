@@ -1,0 +1,1 @@
+python qrc_gen.py DaeSolver.qrc --ext ".xml .svg .png" --root "src/data" -r

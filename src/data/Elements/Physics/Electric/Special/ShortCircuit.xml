@@ -1,0 +1,18 @@
+<elem description="This block represents a short circuit switch.
+At given point of time, this block will have Ron resistance." view="ShortCircuit.png" name="Short circuit">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=0></pin>
+        <pin domain="elec" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="tOn" type=2 title="Trigger time, sec">1</parm>
+        <parm name="R_on" type=2 title="ON resistance, Ohm">0.001</parm>
+        <parm name="R_off" type=2 title="OFF resistance, Ohm">10000000</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p-p2.p = p1.f*if(gr(time, tOn), R_on, R_off)</equ>
+    </Equations>
+</elem>

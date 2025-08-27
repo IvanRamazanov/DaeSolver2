@@ -1,0 +1,17 @@
+<elem description="This block represents a alternate voltage source." view="VariableVoltage.png" name="AC voltage source">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=0></pin>
+        <pin domain="elec" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="A" type="2" title="Amplitude, V">10</parm>
+        <parm name="f" type="2" title="Frequency, Hz">50</parm>
+        <parm name="phi" type="2" title="Phase, rad">0</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p-p2.p = A*sin(2*pi*f*t+phi)</equ>
+    </Equations>
+</elem>

@@ -1,0 +1,18 @@
+<elem description="This block represents an ideal switch.
+When input value is equals zero, circuit is breaks. Otherwise circuit is connects." view="IdealKey.png" name="Ideal key">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=0></pin>
+        <pin domain="elec" name="p2" x=7 y=54></pin>
+        <pin domain="math" name="inp" x=0 y=27 direction="in"></pin>
+    </Connections>
+    <Parameters>
+        <parm name="R_on" type=2 title="R on">0.001</parm>
+        <parm name="R_off" type=2 title="R off">10000000</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p-p2.p = p1.f * if(inp, R_on, R_off)</equ>
+    </Equations>
+</elem>

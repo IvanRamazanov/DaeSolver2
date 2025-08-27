@@ -1,0 +1,9 @@
+<elem description="Ideal three phase transformer" view="Transformer.png" name="Transformer">
+    <Connections>
+        <pin domain="elec_3ph" name="p1" x=5 y=30></pin>
+        <pin domain="elec_3ph" name="p2" x=45 y=30></pin>
+    </Connections>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+</elem>

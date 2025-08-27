@@ -1,0 +1,15 @@
+<elem description="Produces constant torque" view="TorqueSource.png" name="Torque Source">
+    <Connections>
+        <pin domain="rot" name="p1" x=7 y=0></pin>
+        <pin domain="rot" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="A" type="2" title="Torque, Nm">1</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p2.f = A</equ>
+    </Equations>
+</elem>

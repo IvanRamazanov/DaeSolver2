@@ -1,0 +1,15 @@
+<elem description="This block represents a diode.\nA model of diode is piecewise linear." view="Diode.png">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=0></pin>
+        <pin domain="elec" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Vf" type=2 title="Forward voltage">0.5</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p-p2.p=p1.f*if(gr(p1.p-p2.p, Vf), 0.001, 1000000)+Vf</equ>
+    </Equations>
+</elem>

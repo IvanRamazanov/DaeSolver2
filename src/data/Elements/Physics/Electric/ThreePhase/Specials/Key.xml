@@ -1,0 +1,19 @@
+<elem description="Contactor" view="Key.png" name="Contactor">
+    <Connections>
+        <pin domain="elec_3ph" name="p1" x=25 y=0></pin>
+        <pin domain="elec_3ph" name="p2" x=25 y=54></pin>
+        <pin domain="math" name="inp" x=0 y=27 direction="in"></pin>
+    </Connections>
+    <Parameters>
+        <parm name="R_on" type=2 title="R on, mOhm">0.1</parm>
+        <parm name="R_off" type=2 title="R off, MOhm">5</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p[1]-p2.p[1] = p1.f[1]*if(inp, R_on*1e-3, R_off*1e6)</equ>
+        <equ>p1.p[2]-p2.p[2] = p1.f[2]*if(inp, R_on*1e-3, R_off*1e6)</equ>
+        <equ>p1.p[3]-p2.p[3] = p1.f[3]*if(inp, R_on*1e-3, R_off*1e6)</equ>
+    </Equations>
+</elem>

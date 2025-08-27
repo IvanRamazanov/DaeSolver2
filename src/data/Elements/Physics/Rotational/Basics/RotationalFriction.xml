@@ -1,0 +1,15 @@
+<elem description="Friction" view="RotationalFriction.png">
+    <Connections>
+        <pin domain="rot" name="p1" x=7 y=0></pin>
+        <pin domain="rot" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="f" type=2 title="Viscous friction factor">3</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.f * f = w.1-w.2</equ>
+    </Equations>
+</elem>

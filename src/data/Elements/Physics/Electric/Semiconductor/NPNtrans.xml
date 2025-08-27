@@ -1,0 +1,30 @@
+<elem description="This block represents a NPN bipolar transistor.\nModel: Ebers Moll." view="NPNtrans.png">
+    <Connections>
+        <pin domain="elec" name="C" x=32 y=9></pin>
+        <pin domain="elec" name="E" x=32 y=84></pin>
+        <pin domain="elec" name="B" x=6 y=46></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Is" type=2 title="Saturation current">1e-14</parm>
+        <parm name="bf" type=2 title="Forward common emitter current gain">100</parm>
+        <parm name="br" type=2 title="Reverse common emitter current gain">1</parm>
+        <parm name="Vt" type=2 title="Thermal voltage">298.15</parm>
+    </Parameters>
+    <Workspace>
+        <var name="expBE" type=1></var>
+        <var name="expBC" type=1></var>
+        <const name="q">1.602176e-19</const>
+        <const name="k">1.3806503e-23</const>
+        <!-- qk = q/k -->
+        <const name="qk">11604.502602867648</const>
+    </Workspace>
+    <InternalFlow>
+        <sum>C;E;B</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>expBE = if(gr((B.p-E.p)*qk/Vt, 40), exp(40)*((B.p-E.p)*qk/Vt-39), if(gr(-39, (B.p-E.p)*qk/Vt), exp(-39)*((B.p-E.p)*qk/Vt+40), exp((B.p-E.p)*qk/Vt)))</equ>
+        <equ>expBC = if(gr((B.p-C.p)*qk/Vt, 40), exp(40)*((B.p-C.p)*qk/Vt-39), if(gr(-39, (B.p-C.p)*qk/Vt), exp(-39)*((B.p-C.p)*qk/Vt+40), exp((B.p-C.p)*qk/Vt)))</equ>
+        <equ>C.f = Is*((expBE-expBC)*(1-(B.p-C.p)/200)-(expBC-1)/br)</equ>
+        <equ>B.f = Is*((expBE-1)/bf+(expBC-1)/br)</equ>
+    </Equations>
+</elem>

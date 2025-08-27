@@ -1,0 +1,17 @@
+<Inductance description="This block represents an inductivity." view="Inductance.png">
+    <Connections>
+        <pin domain="elec" name="p1" x=7 y=0>
+            <init name="Current" title="Current" var="p1.f">0</init>
+        </pin>
+        <pin domain="elec" name="p2" x=7 y=54></pin>
+    </Connections>
+    <Parameters>
+        <parm name="L" type=2 title="Inductance">0.01</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>p1;p2</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>p1.p - p2.p = d.p1.f * L</equ>
+    </Equations>
+</Inductance>

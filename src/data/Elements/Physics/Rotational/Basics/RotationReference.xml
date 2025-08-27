@@ -1,0 +1,8 @@
+<elem description="This block represents rotational reference." view="RotationReference.png" name="Rotation reference">
+    <Connections>
+        <pin domain="rot" name="pref" x=7 y=0></pin>
+    </Connections>
+    <InternalFlow>
+        <sum>pref;*</sum>
+    </InternalFlow>
+</elem>

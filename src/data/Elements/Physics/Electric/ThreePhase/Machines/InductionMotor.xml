@@ -1,0 +1,78 @@
+<elem description="This block represents an asynchronous AC motor with single squirrel cage.
+Input: mechanical torque in N*m.
+Output: angular velocity in rad/sec." view="InductionMotor.png" name="Asynchronous motor">
+    <Connections>
+        <pin domain="elec_3ph" name="L" x=25 y=5>
+            <init name="CurrentA" title="Stator current, ph. A" var="L.f[1]">0</init>
+            <init name="CurrentB" title="Stator current, ph. B" var="L.f[2]">0</init>
+        </pin>
+        <pin domain="rot" name="r1" x=45 y=35></pin>
+        <pin domain="rot" name="r2" x=4 y=35></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Rs" type=2 title="Stator reluctance">1.405</parm>
+        <parm name="Ls" type=2 title="Stator leakage inductance">0.005839</parm>
+        <parm name="J" type=2 title="Inertia">0.0131</parm>
+        <parm name="Rr" type=2 title="Rotor reluctance">1.395</parm>
+        <parm name="Lr" type=2 title="Rotor leakage inductance">0.005839</parm>
+        <parm name="Lm" type=2 title="Magnetizing inductance">0.1722</parm>
+        <parm name="Zp" type=2 title="Pole pairs">2</parm>
+        <parm name="Fc" type=2 title="Friction">0.002985</parm>
+    </Parameters>
+    <Workspace>
+        <var name="X" type=1>
+            <init name="speed" title="Speed">0</init>
+        </var>
+        <var name="i_a" type=0>
+            <init name="ira" title="Rotor current, ph. a">0</init>
+        </var>
+        <var name="i_b" type=0>
+            <init name="irb" title="Rotor current, ph. b">0</init>
+        </var>
+        <var name="theta" type=1>
+            <init name="theta" title="Rotor angle">0</init>
+        </var>
+    </Workspace>
+    <InternalFlow>
+        <sum>L</sum>
+        <sum>r1;r2</sum>
+    </InternalFlow>
+    <Equations>
+        <var name="L_s">Lm+Ls</var>
+        <var name="L_r">Lm+Lr</var>
+        <var name="M12">2/3*Lm</var>
+        <var name="M3">4*L_s*L_r - 9*M12*M12</var>
+        <var name="Kuac_1">8*L_r/3/M3</var>
+        <var name="Kuac_2">4*L_r/3/M3</var>
+        <var name="Kuac_3">4*M12/M3*cos(theta)</var>
+        <var name="Kuac_4">2*M12/M3*cos(theta) + 2*M12*pow(3,0.5)/M3*sin(theta)</var>
+        <var name="Kubc_1">4*L_r/3/M3</var>
+        <var name="Kubc_2">8*L_r/3/M3</var>
+        <var name="Kubc_3">2*M12/M3*cos(theta) - 2*M12*pow(3,0.5)/M3*sin(theta)</var>
+        <var name="Kubc_4">4*M12/M3*cos(theta)</var>
+        <var name="KiA_1">3*pow(3,0.5)*M12*M12*Zp/M3*X - 4*Rs*L_r/M3</var>
+        <var name="KiA_2">6*pow(3,0.5)*M12*M12*Zp/M3*X</var>
+        <var name="KiA_3">2*3*M12*L_s*Zp/M3*X*sin(theta) - 2*pow(3,0.5)*M12*L_s*Zp/M3*X*cos(theta)+2*3*M12*Rs/M3*cos(theta)+2*pow(3,0.5)*M12*Rs/M3*sin(theta)</var>
+        <var name="KiA_4">4*pow(3,0.5)*M12*L_s*Zp/M3*X*cos(theta) - 4*pow(3,0.5)*M12*Rs/M3*sin(theta)</var>
+        <var name="KiB_1">6*pow(3,0.5)*M12*M12*Zp/M3*X</var>
+        <var name="KiB_2">3*pow(3,0.5)*M12*M12*Zp/M3*X + 4*Rs*L_r/M3</var>
+        <var name="KiB_3">4*pow(3,0.5)*M12*Rs/M3*sin(theta)-4*pow(3,0.5)*M12*L_s*Zp/M3*X*cos(theta)</var>
+        <var name="KiB_4">2*3*M12*L_s*Zp/M3*X*sin(theta) + 2*pow(3,0.5)*M12*L_s*Zp/M3*X*cos(theta) + 2*3*M12*Rs/M3*cos(theta) - 2*pow(3,0.5)*M12*Rs/M3*sin(theta)</var>
+        <var name="Kia_1">2*pow(3,0.5)*M12/M3*(L_r*Zp*X*(sin(theta)*pow(3,0.5) + cos(theta)) + Rr*(cos(theta)*pow(3,0.5) - sin(theta)))</var>
+        <var name="Kia_2">4*pow(3,0.5)*M12*Rr/M3*sin(theta) - 4*pow(3,0.5)*M12*L_r*Zp/M3*X*cos(theta)</var>
+        <var name="Kia_3">3*pow(3,0.5)*M12*M12*Zp/M3*X + 4*Rr*L_s/M3</var>
+        <var name="Kia_4">6*pow(3,0.5)*M12*M12*Zp/M3*X</var>
+        <var name="Kib_1">4*pow(3,0.5)*M12/M3*(X*L_r*Zp*cos(theta) - Rr*sin(theta))</var>
+        <var name="Kib_2">2*pow(3,0.5)*M12/M3*(X*L_r*Zp*(sin(theta)*pow(3,0.5) - cos(theta)) + Rr*(cos(theta)*pow(3,0.5) + sin(theta)))</var>
+        <var name="Kib_3">6*pow(3,0.5)*M12*M12*Zp/M3*X</var>
+        <var name="Kib_4">3*pow(3,0.5)*M12*M12*Zp/M3*X - 4*Rr*L_s/M3</var>
+        <var name="M">2/3*M12*Zp*((L.f[2]*i_a - L.f[1]*i_b)*pow(3,0.5)*cos(theta) - (2*L.f[1]*i_a + 2*L.f[2]*i_b + L.f[1]*i_b + L.f[2]*i_a)*sin(theta))</var>
+        <equ>X = r1.p-r2.p</equ>
+        <equ>d.L.f[1] = Kuac_1*(L.p[1]-L.p[3]) - Kubc_1*(L.p[2]-L.p[3]) + KiA_1*L.f[1] + KiB_1*L.f[2] + Kia_1*i_a + Kib_1*i_b</equ>
+        <equ>d.L.f[2] = Kubc_2*(L.p[2]-L.p[3]) - Kuac_2*(L.p[1]-L.p[3]) - KiA_2*L.f[1] - KiB_2*L.f[2] + Kia_2*i_a + Kib_2*i_b</equ>
+        <equ>d.i_a = -1*Kuac_3*(L.p[1]-L.p[3]) + Kubc_3*(L.p[2]-L.p[3]) + KiA_3*L.f[1] + KiB_3*L.f[2] - Kia_3*i_a - Kib_3*i_b</equ>
+        <equ>d.i_b = Kuac_4*(L.p[1]-L.p[3]) - Kubc_4*(L.p[2]-L.p[3]) + KiA_4*L.f[1] + KiB_4*L.f[2] + Kia_4*i_a + Kib_4*i_b</equ>
+        <equ>d.X = (M - r1.f - X*Fc)/J</equ>
+        <equ>d.theta = Zp*X</equ>
+    </Equations>
+</elem>

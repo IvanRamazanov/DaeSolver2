@@ -1,0 +1,21 @@
+<elem description="Three phase load." view="ThreePhLoad.png">
+    <Connections>
+        <pin domain="elec" name="A" x=4 y=4></pin>
+        <pin domain="elec" name="B" x=20 y=4></pin>
+        <pin domain="elec" name="C" x=40 y=4></pin>
+        <pin domain="elec" name="N" x=20 y=60></pin>
+    </Connections>
+    <Parameters>
+        <parm name="Ra" type=2 title="Resistance, A">10</parm>
+        <parm name="Rb" type=2 title="Resistance, B">10</parm>
+        <parm name="Rc" type=2 title="Resistance, C">10</parm>
+    </Parameters>
+    <InternalFlow>
+        <sum>A;B;C;N</sum>
+    </InternalFlow>
+    <Equations>
+        <equ>A.p=N.p + A.f*Ra</equ>
+        <equ>B.p=N.p + B.f*Rb</equ>
+        <equ>C.p=N.p + C.f*Rc</equ>
+    </Equations>
+</elem>
