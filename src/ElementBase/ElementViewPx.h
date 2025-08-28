@@ -30,7 +30,6 @@ namespace ElementBase{
 
         private:
             Element *owner;
-            QString image;
             int height = 100;
 
             // drag event

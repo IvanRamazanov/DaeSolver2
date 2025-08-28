@@ -9,7 +9,7 @@ namespace Elements{
         Sinus::Sinus(){
             id = "Sinus";
             name = "Sine wave";
-            imgPath = ":/src/data/Elements/Discrete/Sources/Sinus.png";
+            setImgPath(":/src/data/Elements/Discrete/Sources/Sinus.png");
             description = "This block represents a sinus wave source.";
 
             addPin("val", Domains::Output);

@@ -55,7 +55,7 @@ namespace Connections{
         }
 
         void Line::dragDetected(QGraphicsSceneMouseEvent *event){
-            auto m = owner->getWire()->addLineMarker(owner, event->pos().x(), event->pos().y());
+            auto m = owner->getWire()->addLineMarker(owner, event->pos());
 
             // transfer events to the new marker
             m->inheritMouseMove();

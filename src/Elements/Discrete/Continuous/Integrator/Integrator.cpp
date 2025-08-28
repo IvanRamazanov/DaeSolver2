@@ -4,7 +4,7 @@ namespace Elements{
     Integrator::Integrator(){
         id = "Integrator";
         name = id;
-        imgPath = ":src/data/Elements/Discrete/Continuous/Integrator.png";
+        setImgPath(":src/data/Elements/Discrete/Continuous/Integrator.png");
         description = "This block represents an ideal integration unit.";
         
         inP = addPin("in", QPointF(0, 19), Domains::MATH.get(), false, Domains::Input);

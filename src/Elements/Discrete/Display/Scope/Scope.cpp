@@ -80,7 +80,7 @@ namespace Elements{
     Scope::Scope(){
         id = "Scope";
         name = id;
-        imgPath = ":src/data/Elements/Discrete/Display/Scope.png";
+        setImgPath(":src/data/Elements/Discrete/Display/Scope.png");
 
         addPin("in", QPointF(-3, 23), Domains::MATH.get(), false, Domains::ConnDirection::Input);
         input = pins[0].get();

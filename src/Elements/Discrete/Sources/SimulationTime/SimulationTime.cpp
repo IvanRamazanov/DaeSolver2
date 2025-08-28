@@ -7,7 +7,7 @@ namespace Elements{
     SimulationTime::SimulationTime(){
         id = "SimulationTime";
         name = "Simulation time";
-        imgPath = ":/src/data/Elements/Discrete/Sources/SimulationTime.png";
+        setImgPath(":/src/data/Elements/Discrete/Sources/SimulationTime.png");
         description = "This block represents a time clock.\n"
                 "Output value equals simulation time.";
 

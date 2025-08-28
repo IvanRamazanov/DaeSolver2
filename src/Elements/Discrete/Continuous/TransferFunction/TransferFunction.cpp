@@ -4,7 +4,7 @@ namespace Elements{
     TransferFunction::TransferFunction(){
         id = "TransferFunction";
         name = id;
-        imgPath = ":src/data/Elements/Discrete/Continuous/TransferFunction.png";
+        setImgPath(":src/data/Elements/Discrete/Continuous/TransferFunction.png");
         description = "Transfer function";
         
         inP = addPin("in", QPointF(0, 19), Domains::MATH.get(), false, Domains::Input);

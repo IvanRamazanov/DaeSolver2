@@ -66,7 +66,7 @@ namespace MathPack{
         size_t numOfConsts=0;
         vector<double> inputs(input->getRank());
         vector<int>    indxs(input->getRank());
-        for(int i=0; i<input->getRank(); i++){
+        for(size_t i=0; i<input->getRank(); i++){
             if(inps[i]->type() == ConstNode){
                 inputs[numOfConsts] = cast_node<Const>(inps[i])->getValue();
                 indxs[numOfConsts] = i;

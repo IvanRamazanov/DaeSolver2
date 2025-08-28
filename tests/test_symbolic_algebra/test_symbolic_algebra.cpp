@@ -220,11 +220,25 @@ private slots:
     }
     
 
-    void testDifferentials() {
+    void testGetDiffer1() {
         StringGraph sg("1*X1");
         auto sgd = sg.getDiffer("X1");
 
         QCOMPARE(sgd->evaluate(), 1);
+    }
+
+    void testGetDiffer2(){
+        StringGraph sg("dp1f*(15-((dX+X/3)*dX)*5.4*(dX*X/3)*0.333333)/0.012");
+        auto res = sg.getDiffer("dX");
+
+        QCOMPARE(res->toString().empty(), false);
+    }
+
+    void testGetDiffer3(){
+        StringGraph sg("d.p1.f-((15.000000-((-d.X+((d.X+(X/3.000000))))*5.400000)-((d.X+(X/3.000000))*0.333333))/0.012000)");
+        auto res = sg.getDiffer("d.X");
+
+        QCOMPARE(res->toString().empty(), false);
     }
 
     void testMemoryLeaks() {

@@ -410,7 +410,7 @@ namespace Connections{
              * @param x
              * @param y
              */
-            LineMarker* addLineMarker(ConnectionLine* line, int x, int y);
+            LineMarker* addLineMarker(ConnectionLine* line, QPointF const& pos);
             
             /**
              * create marker and plug it into pin

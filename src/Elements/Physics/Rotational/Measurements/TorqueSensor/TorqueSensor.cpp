@@ -6,7 +6,7 @@ namespace Elements{
     TorqueSensor::TorqueSensor(){
         id = "TorqueSensor";
         name = "Torque sensor";
-        imgPath = ":/src/data/Elements/Physics/Rotational/Measurements/TorqueSensor.png";
+        setImgPath(":/src/data/Elements/Physics/Rotational/Measurements/TorqueSensor.png");
         description = "Ideal torque sensor";
         
         // pins
@@ -24,6 +24,7 @@ namespace Elements{
     }
 
     void TorqueSensor::discreteStep(double time) {
+        (void)time;
         outVar->setValue(obsVar->getValue());
     }
 }

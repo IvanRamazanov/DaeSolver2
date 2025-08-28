@@ -7,7 +7,7 @@ namespace Elements{
     Step::Step(){
         id = "Step";
         name = id;
-        imgPath = ":/src/data/Elements/Discrete/Sources/Step.png";
+        setImgPath(":/src/data/Elements/Discrete/Sources/Step.png");
         description = "This block represents a step function output.\n"
             "It changes value from 'level off' to 'level on' at 'Switch time' moment of time.";
 

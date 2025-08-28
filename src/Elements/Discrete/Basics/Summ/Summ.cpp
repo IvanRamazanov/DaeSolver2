@@ -6,7 +6,7 @@ namespace Elements{
     Sum::Sum(){
         id = "Sum";
         name = id;
-        imgPath = ":/src/data/Elements/Discrete/Basics/Sum.png";
+        setImgPath(":/src/data/Elements/Discrete/Basics/Sum.png");
         description = "This block calculates sum of Inputs.";
 
         inP1 = addPin("in1", Domains::Input);

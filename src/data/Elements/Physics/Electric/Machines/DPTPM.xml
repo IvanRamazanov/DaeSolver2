@@ -29,6 +29,6 @@ Output: angular velocity in rad/sec." view="DPTPM.png" name="DC PM motor">
     <Equations>
         <equ>X = r1.p-r2.p</equ>
         <equ>d.p1.f = (p1.p-p2.p - Cw*X*F - p1.f*Rya)/Lya</equ>
-        <equ>d.X = (p1.f*F*Cm - r2.f)/J</equ>
+        <equ>d.X = (p1.f*F*Cm - r2.f)/J0</equ>
     </Equations>
 </elem>

@@ -6,7 +6,7 @@ namespace Elements{
     Inport::Inport(){
         id = "Inport";
         name = "Inport";
-        imgPath = ":/src/data/Elements/Discrete/Environment/Inport.png";
+        setImgPath(":/src/data/Elements/Discrete/Environment/Inport.png");
 
         in = addPin("ext", QPointF(0, 0), Domains::MATH.get(), true, Domains::ConnDirection::Input);
         out = addPin("inn", QPointF(30, 15), Domains::MATH.get(), false, Domains::ConnDirection::Output);
@@ -33,6 +33,7 @@ namespace Elements{
     }
 
     void Inport::discreteStep(double time){
+        (void)time;
         std::memcpy(out->data, in->data, out->dataSize*sizeof(double));
     }
 }

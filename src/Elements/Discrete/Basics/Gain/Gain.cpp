@@ -6,7 +6,7 @@ namespace Elements{
         Gain::Gain(){
             id = "Gain";
             name = id;
-            imgPath = ":/src/data/Elements/Discrete/Basics/Gain.png";
+            setImgPath(":/src/data/Elements/Discrete/Basics/Gain.png");
             description = "This block represents an amplifier.\n"
                             "Output = Gain * Input.";
 

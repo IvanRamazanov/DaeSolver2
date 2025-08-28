@@ -448,7 +448,7 @@ namespace Connections{
         return(lineMarkers.size());
     }
 
-    LineMarker* WireCluster::addLineMarker(ConnectionLine* line, int x, int y){
+    LineMarker* WireCluster::addLineMarker(ConnectionLine* line, QPointF const& pos){
         Direction dir = domain->directional ? Direction::Input : Direction::Uni;
         size_t original_size = size();
         lineMarkers.push_back(make_unique<LineMarker>(this, dir));
@@ -456,7 +456,7 @@ namespace Connections{
         unique_ptr<LineMarker> &newMarker = *(lineMarkers.end()-1);
 
         // TODO get (closest) point on the line
-        newMarker->getAnchor()->moveCenterTo(QPointF(x, y));
+        newMarker->getAnchor()->moveCenterTo(pos);
 
         // adjust crosses
         if (line->isCrossToCross()){
@@ -520,7 +520,7 @@ namespace Connections{
         bindCrosses();
 
         // adjust position
-        newMarker->moveCenterTo(QPointF(x, y));
+        newMarker->moveCenterTo(pos);
 
         // add graphics items to subsystem scene
         auto itemList = newMarker->getView();
@@ -537,7 +537,10 @@ namespace Connections{
             endPos = lastLine->isCrossToCross() ? lastLine->getEndMarker<Cross*>()->scenePos() : \
                                                 lastLine->getEndMarker<LineMarker*>()->scenePos();
         QPointF rootPos = (endPos+stPos)/2;
-        return addLineMarker(lastLine, rootPos.x(), rootPos.y());
+        auto ret = addLineMarker(lastLine, rootPos);
+        ret->plugIn(pin);
+        
+        return ret;
     }
 
     void WireCluster::remove(ConnectionLine* line){

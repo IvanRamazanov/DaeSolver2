@@ -48,6 +48,7 @@
 
 namespace ElementBase{
     enum ElemTypes {Elem, Subsys};
+    constexpr auto DEFAULT_IMAGE = ":/src/data/Elements/Subsystem.png";
 
     class ElementMime : public QMimeData{
         Q_OBJECT
@@ -96,14 +97,13 @@ namespace ElementBase{
         protected:
             string id;
             string name;
-            string imgPath;
-            string imgName;
+            QPixmap imgPix;
             string description;
             double  contStep=15,
                     maxX;
             vector<shared_ptr<Pin>> pins; // shared because can be moved to Subsystem layout
             vector<unique_ptr<Parameter>> parameters;
-            vector<InitParam> stateInitValues;
+            list<InitParam> stateInitValues;
             vector<MathPack::StringGraph> equations;
 
             // connector var name + it's domain
@@ -147,6 +147,8 @@ namespace ElementBase{
             void alignPin(Pin *pin, bool leftSide);
 
             void initPortSize(Pin *pin, size_t size, Pin* verifyMatch=nullptr);
+
+            void setImgPath(string const& path);
 
         public:
             /**
@@ -194,7 +196,7 @@ namespace ElementBase{
 
             double getY();
 
-            string const& getImgPath();
+            QPixmap const& getImage();
 
             void moveTo(QPointF p);
 
@@ -227,8 +229,6 @@ namespace ElementBase{
 
             string getDiscreteFunction();
             const vector<MathPack::StringGraph>& getEquations();
-
-            const vector<InitParam>& getInitParams();
 
             // ODE API
             virtual void discreteStep(double time);

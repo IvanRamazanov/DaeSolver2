@@ -484,7 +484,7 @@ namespace MathPack{
         input.pop_back();
     }
 
-    int FuncNode::getRank(){
+    size_t FuncNode::getRank(){
         return getInputs().size();
     }
 

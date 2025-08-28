@@ -7,7 +7,7 @@ namespace Elements{
     Mux::Mux(){
         id = "Mux";
         name = id;
-        imgPath = ":/src/data/Elements/Discrete/Environment/Mux.png";
+        setImgPath(":/src/data/Elements/Discrete/Environment/Mux.png");
         description = "This block represents a vector(or scalar) packing.";
 
         numOfInputs = addScalarParameter("numInputs", "Number of inputs", 2);

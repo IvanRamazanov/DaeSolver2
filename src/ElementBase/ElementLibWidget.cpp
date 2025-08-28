@@ -12,9 +12,7 @@ namespace ElementBase{
 
         // Element body
         QLabel *elemView = new QLabel(); // container for GraphicsScene
-        auto pic = QPixmap(QString::fromStdString(owner->getImgPath()));
-        pic = pic.scaled(pic.width()/5, pic.height()/5);
-        elemView->setPixmap(pic);
+        elemView->setPixmap(owner->getImage());
         elemView->setAlignment(Qt::AlignCenter);
         //elemView->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -48,7 +46,7 @@ namespace ElementBase{
             ElementMime *data = new ElementMime();
             data->setData(CUSTOM_FORMAT, owner);
             drag->setMimeData(data);
-            drag->setPixmap(QPixmap(QString::fromStdString(owner->getImgPath())));
+            drag->setPixmap(owner->getImage());
 
             drag->exec();
         }

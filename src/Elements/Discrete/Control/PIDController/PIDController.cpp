@@ -6,7 +6,7 @@ namespace Elements{
     PIDController::PIDController(){
         id = "PIDController";
         name = id;
-        imgPath = ":/src/data/Elements/Discrete/Control/PIDController.png";
+        setImgPath(":/src/data/Elements/Discrete/Control/PIDController.png");
         description = "This block represents PID-controller";
 
         inP = addPin("inp", Domains::Input);

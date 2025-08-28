@@ -172,6 +172,7 @@ namespace Solvers{
         discSys = compiler.discSys;
         Xvector.insert(Xvector.end(), discSys->Xvector.begin(), discSys->Xvector.end());
         dXvector.insert(dXvector.end(), discSys->dXvector.begin(), discSys->dXvector.end());
+        diffRank = Xvector.size();
 
         // verify state size
         if (stateVector.size() != algSystem.size()){
@@ -330,7 +331,7 @@ namespace Solvers{
         evalMathDX();
 
         // for debug
-        #ifdef DEBUG
+        #if defined(DEBUG) && false
             if (time->getValue() == 0) {
                 logger->printMsg("\n\nt ");
                 for (size_t i=0; i<stateVector.size();i++) {

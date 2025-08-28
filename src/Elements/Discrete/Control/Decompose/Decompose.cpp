@@ -7,7 +7,7 @@ namespace Elements{
         Decompose::Decompose(){
             id = "Decompose";
             name = id;
-            imgPath = ":/src/data/Elements/Discrete/Control/Decompose.png";
+            setImgPath(":/src/data/Elements/Discrete/Control/Decompose.png");
             description = "Complex to magnitude and degree";
 
             inP = addPin("inp", Domains::Input);

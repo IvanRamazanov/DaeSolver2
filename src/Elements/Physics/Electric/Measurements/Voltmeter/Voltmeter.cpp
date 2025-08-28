@@ -7,7 +7,7 @@ namespace Elements{
     Voltmeter::Voltmeter(){
         id = "Voltmeter";
         name = id;
-        imgPath = ":/src/data/Elements/Physics/Electric/Measurements/Voltmeter.png";
+        setImgPath(":/src/data/Elements/Physics/Electric/Measurements/Voltmeter.png");
         description = "This block represents a voltmeter.\n"
                         "Output: voltage in volts";
 
@@ -28,6 +28,7 @@ namespace Elements{
     }
 
     void Voltmeter::discreteStep(double time) {
+        (void)time;
         outVar->setValue(p1Var->getValue() - p2Var->getValue());
     }
 

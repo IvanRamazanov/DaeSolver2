@@ -6,7 +6,7 @@ namespace Elements{
     RMSvalue::RMSvalue(){
         id = "RMSvalue";
         name = "RMS";
-        imgPath = ":/src/data/Elements/Discrete/Control/RMSvalue.png";
+        setImgPath(":/src/data/Elements/Discrete/Control/RMSvalue.png");
         description = "RMS value";
 
         inP = addPin("inp", Domains::Input);

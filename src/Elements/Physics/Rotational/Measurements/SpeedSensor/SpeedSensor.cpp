@@ -7,7 +7,7 @@ namespace Elements{
     SpeedSensor::SpeedSensor(){
         id = "SpeedSensor";
         name = "Speed sensor";
-        imgPath = ":/src/data/Elements/Physics/Rotational/Measurements/SpeedSensor.png";
+        setImgPath(":/src/data/Elements/Physics/Rotational/Measurements/SpeedSensor.png");
         description = "Ideal speed sensor";
 
         // pins
@@ -27,6 +27,7 @@ namespace Elements{
     }
 
     void SpeedSensor::discreteStep(double time) {
+        (void)time;
         outVar->setValue(p1Var->getValue() - p2Var->getValue());
     }
 

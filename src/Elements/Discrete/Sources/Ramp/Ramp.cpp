@@ -7,7 +7,7 @@ namespace Elements{
     Ramp::Ramp(){
         id = "Ramp";
         name = id;
-        imgPath = ":/src/data/Elements/Discrete/Sources/Ramp.png";
+        setImgPath(":/src/data/Elements/Discrete/Sources/Ramp.png");
         description = "This block represents a linear output, that triggers at given time moment.";
 
         addPin("val", Domains::Output);

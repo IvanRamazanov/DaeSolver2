@@ -6,7 +6,7 @@ namespace Elements{
     Product::Product(){
         id = "Product";
         name = id;
-        imgPath = ":/src/data/Elements/Discrete/Basics/Product.png";
+        setImgPath(":/src/data/Elements/Discrete/Basics/Product.png");
         description = "out=in1*in2";
 
         inP1 = addPin("in1", Domains::Input);

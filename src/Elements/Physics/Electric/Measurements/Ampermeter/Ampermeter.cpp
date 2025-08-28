@@ -6,7 +6,7 @@ namespace Elements{
     Ampermeter::Ampermeter(){
         id = "Ampermeter";
         name = id;
-        imgPath = ":/src/data/Elements/Physics/Electric/Measurements/Ampermeter.png";
+        setImgPath(":/src/data/Elements/Physics/Electric/Measurements/Ampermeter.png");
         description = "This block represents an ampermeter.\n"
                         "Output: current in amperes";
         
@@ -25,6 +25,7 @@ namespace Elements{
     }
 
     void Ampermeter::discreteStep(double time) {
+        (void)time;
         outVar->setValue(obsVar->getValue());
     }
 }

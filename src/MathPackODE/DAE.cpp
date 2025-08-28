@@ -864,7 +864,10 @@ namespace dae_solver {
             for(auto& var:varList){
                 // independent, if has at least one dynamic var
                 auto idx = indexOf(dynamicVars, var->getWsLink());
-                if (var->getWsLink()->dataType != WorkSpace::Discrete && !diffPresent.contains(idx)){
+                if (idx!=size_t(-1)
+                    && var->getWsLink()->dataType != WorkSpace::Discrete
+                    && !diffPresent.contains(idx))
+                {
                     isIndependent = true;
 
                     auto left = make_shared<StringGraph>(dynamicVars[diffIdx].get(), globalNames[diffIdx]);

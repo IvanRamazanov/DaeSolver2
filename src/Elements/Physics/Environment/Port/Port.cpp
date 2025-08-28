@@ -6,7 +6,7 @@ namespace Elements{
     Port::Port(){
         id = "Port";
         name = "Port";
-        imgPath = ":/src/data/Elements/Physics/Environment/Port.png";
+        setImgPath(":/src/data/Elements/Physics/Environment/Port.png");
         description = "Passes values from and in subsystems";
 
         addPin("ext", QPointF(0, 0), Domains::ELECTRIC.get(), true);

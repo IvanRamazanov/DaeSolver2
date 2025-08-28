@@ -7,7 +7,7 @@ namespace Elements{
     ThreePhMultimeter::ThreePhMultimeter(){
         id = "ThreePhMultimeter";
         name = id;
-        imgPath = ":/src/data/Elements/Physics/Electric/Measurements/ThreePhMultimeter.png";
+        setImgPath(":/src/data/Elements/Physics/Electric/Measurements/ThreePhMultimeter.png");
         description = "This block measures three-phase currents and line-line voltages.";
 
         // pins

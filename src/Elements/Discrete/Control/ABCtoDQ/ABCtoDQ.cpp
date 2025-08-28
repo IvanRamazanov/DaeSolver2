@@ -7,7 +7,7 @@ namespace Elements{
         ABCtoDQ::ABCtoDQ(){
             id = "ABCtoDQ";
             name = "abc-dq0";
-            imgPath = ":/src/data/Elements/Discrete/Control/ABCtoDQ.png";
+            setImgPath(":/src/data/Elements/Discrete/Control/ABCtoDQ.png");
             description = "Park transformation from ABC into dq0\n"
                 "First input - ABC vector, Second - axes rotation angle.";
 

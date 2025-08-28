@@ -4,7 +4,7 @@ namespace Elements{
     Delay::Delay(){
         id = name = "Delay";
         description = "Zero-hold";
-        imgPath = ":src/data/Elements/Discrete/Continuous/Delay.png";
+        setImgPath(":src/data/Elements/Discrete/Continuous/Delay.png");
 
         // pins
         addPin("in", Domains::Input);

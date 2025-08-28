@@ -73,11 +73,11 @@ namespace ElementBase{
 
         // view
         if (spec->attributes.contains(ATTR_ELEM_VIEW)){
-            imgName = spec->attributes[ATTR_ELEM_VIEW];
-            imgPath = path.parent_path().string() + "/" + imgName; //for creation!
+            setImgPath(path.parent_path().string() + "/" + spec->attributes[ATTR_ELEM_VIEW]);
         }else{
-            imgPath = ":/src/data/Elements/Subsystem.png"; // default view
+            setImgPath(DEFAULT_IMAGE);
         }
+        
 
         // unique name
         if (spec->attributes.contains(ATTR_ELEM_NAME)){
@@ -162,15 +162,15 @@ namespace ElementBase{
 
             // local eq vars
             equs = conns->findAll("var");
-            for (auto& var:equs){
-                if (!var->attributes.contains("name"))
-                    throw runtime_error("Equation var must have a name: " + var->text);
+            for (auto i=equs.size(); i-->0;){
+                if (!equs[i]->attributes.contains("name"))
+                    throw runtime_error("Equation var must have a name: " + equs[i]->text);
 
-                if (var->text.empty())
+                if (equs[i]->text.empty())
                     continue;
 
-                string varName = var->attributes["name"];
-                auto right = make_shared<MathPack::StringGraph>(var->text);
+                string varName = equs[i]->attributes["name"];
+                auto right = make_shared<MathPack::StringGraph>(equs[i]->text);
 
                 // replace local var in equations
                 for(auto& eq:equations)
@@ -319,12 +319,14 @@ namespace ElementBase{
             ttop->addWidget(new QLabel("Priority"), 0, 1);
             ttop->addWidget(new QLabel("Value"), 0, 2);
             // content
-            for(size_t k=0; k<stateInitValues.size(); k++){
-                InitParam& p=stateInitValues[k];
+            size_t k=0;
+            for(auto& p:stateInitValues){
                 auto pn = p.getView();
                 for(size_t i=pn.size(); i-->0;){
                     ttop->addWidget(pn[i], k+1, i);
                 }
+
+                k++;
             }
             //ttop.getColumnConstraints().add(new ColumnConstraints(Control.USE_COMPUTED_SIZE));
             //ttop.getColumnConstraints().add(new ColumnConstraints(Control.USE_COMPUTED_SIZE));
@@ -527,6 +529,12 @@ namespace ElementBase{
         return equations;
     }
 
+    void Element::setImgPath(string const& path){
+        imgPix = QPixmap(QString::fromStdString(path));
+        // scale down
+        imgPix = imgPix.scaled(imgPix.width()/5, imgPix.height()/5);
+    }
+
     void Element::setSelected(bool value){
         (void)value;
         // if (_view){
@@ -615,10 +623,6 @@ namespace ElementBase{
 
         ret->attributes[ATTR_ID] = this->id;
         ret->attributes[ATTR_ELEM_NAME] = name;
-        //ret->attributes[ATTR_ELEM_DESCR] = description;
-
-        //if (!imgName.empty())
-        //    ret->attributes[ATTR_ELEM_VIEW] = imgName;
 
         XmlParser::XmlElement *layout = new XmlParser::XmlElement(ELEM_LAYOUT_TAG);
         layout->text = format(ELEM_LAYOUT_FORMAT, x, y, rot);
@@ -734,21 +738,17 @@ namespace ElementBase{
             }
         }
 
-        stateInitValues.emplace_back(InitParam(name, val, title));
+        stateInitValues.emplace_back(name, val, title);
 
         // assign to var
         var->setInitVal(&stateInitValues.back());
     }
 
     void Element::addInitValue(string const& name, string const& title, vector<double> const& value, WorkSpace::DifferentialVar *var){
-        stateInitValues.emplace_back(InitParam(name, value, title));
+        stateInitValues.emplace_back(name, value, title);
 
         // assign to var
         var->setInitVal(&stateInitValues.back());
-    }
-
-    const vector<InitParam>& Element::getInitParams(){
-        return stateInitValues;
     }
 
     void Element::rotate(){
@@ -789,8 +789,8 @@ namespace ElementBase{
         return name;
     }
 
-    string const& Element::getImgPath(){
-        return imgPath;
+    QPixmap const& Element::getImage(){
+        return imgPix;
     }
 
     void Element::initView(){
@@ -836,7 +836,7 @@ namespace ElementBase{
         QPointF pinPos;
         vector<Pin*>& pinVec = leftSide ? leftSidePins : rightSidePins;
         pinPos.setX(leftSide ? -3 : 40); // TODO get current width instead of '40'
-        double h = _view->getBodyHeight();
+        double h = imgPix.height();
 
         pinVec.push_back(pin);
         auto pinCnt = pinVec.size();

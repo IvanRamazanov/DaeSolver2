@@ -6,7 +6,7 @@ namespace Elements{
     Saturation::Saturation(){
         id = "Saturation";
         name = id;
-        imgPath = ":/src/data/Elements/Discrete/Basics/Saturation.png";
+        setImgPath(":/src/data/Elements/Discrete/Basics/Saturation.png");
         description = "This block represents a saturation.";
 
         inP = addPin("inp", Domains::Input);

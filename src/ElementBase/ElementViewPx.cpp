@@ -2,9 +2,7 @@
 
 namespace ElementBase{
     View::View(Element *owner): owner(owner){
-        image = QString::fromStdString(owner->imgPath);
-        setPixmap(QPixmap(image));
-        setScale(0.2);
+        setPixmap(owner->getImage());
 
         //view.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.AQUA, 1.0, 1.0, 0, 0));
         setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
@@ -72,8 +70,8 @@ namespace ElementBase{
             ElementMime *content = new ElementMime();
             content->setData(CUSTOM_FORMAT, owner);
             db->setMimeData(content);
-            QPixmap img = QPixmap(image).scaled(img.width()/5,img.height()/5);
-            db->setPixmap(img);
+            db->setPixmap(pixmap());
+            
 
             db->exec();         
         }else if(readyToMove){

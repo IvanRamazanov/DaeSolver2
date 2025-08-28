@@ -124,6 +124,7 @@ namespace ElementBase{
 
     void Parameter::setValue(double val){
         value[0] = val;
+        actualSize = {1, 0};
 
         tmpTextValue = QString("%1").arg(val, 0, 'f', -1);
     }

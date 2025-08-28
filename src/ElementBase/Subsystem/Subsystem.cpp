@@ -17,7 +17,7 @@ namespace ElementBase{
     Subsystem::Subsystem(){
         name = "Subsystem";
         id = SYS_ID;
-        imgPath = ":/src/data/Elements/Subsystem.png";
+        setImgPath(DEFAULT_IMAGE);
 
         initStage();
     }
@@ -254,10 +254,13 @@ namespace ElementBase{
     }
 
     void Subsystem::addPinView(shared_ptr<Pin> pin, bool leftSide){
-        _view->addPin(pin.get());
+        if(getSystem()){
+            // root subsystem doesn't have view
+            _view->addPin(pin.get());
 
-        alignPin(pin.get(), leftSide);
-
+            alignPin(pin.get(), leftSide);
+        }
+        
         // in order for LineMarker to find external pin, it has to be in the list
         pins.push_back(pin);
     }
@@ -281,6 +284,7 @@ namespace ElementBase{
         for (auto& p:elementList[idx]->_getPins()){
             if (p->isExternal()){
                 // "external" pin, remove from subsystem layout
+                p->getView()->setParentItem(nullptr);
                 for(size_t j=pins.size(); j-->0;){
                     if (p == pins[j]){
                         pins.erase(pins.begin() + j);

@@ -6,7 +6,7 @@ namespace Elements{
     Multimeter::Multimeter(){
         id = "Multimeter";
         name = id;
-        imgPath = ":/src/data/Elements/Physics/Electric/ThreePhase/Measurements/Multimeter.png";
+        setImgPath(":/src/data/Elements/Physics/Electric/ThreePhase/Measurements/Multimeter.png");
         description = "Measures phase currents and line voltage";
         
         // pins

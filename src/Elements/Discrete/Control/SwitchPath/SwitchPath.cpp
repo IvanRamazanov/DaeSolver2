@@ -6,7 +6,7 @@ namespace Elements{
         SwitchPath::SwitchPath(){
             id = "SwitchPath";
             name = "Switch";
-            imgPath = ":/src/data/Elements/Discrete/Control/SwitchPath.png";
+            setImgPath(":/src/data/Elements/Discrete/Control/SwitchPath.png");
             description = "If second input's value bigger, than threshold, then first input passes.";
 
             in1P = addPin("inp1", Domains::Input);

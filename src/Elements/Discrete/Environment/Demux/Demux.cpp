@@ -7,7 +7,7 @@ namespace Elements{
     Demux::Demux(){
         id = "Demux";
         name = id;
-        imgPath = ":/src/data/Elements/Discrete/Environment/Demux.png";
+        setImgPath(":/src/data/Elements/Discrete/Environment/Demux.png");
         description = "This block unpacks a vector (to scalars)";
 
         numOfOutputs = addScalarParameter("numOuts", "Number of outputs", 2);

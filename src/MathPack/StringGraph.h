@@ -114,7 +114,7 @@ namespace MathPack{
 
             string getFuncName();
             SimpleFunc::FuncTypes getFuncType();
-            int getRank();
+            size_t getRank();
 
             void invertNode(node_container<Node> next, size_t refIndex);
             /**

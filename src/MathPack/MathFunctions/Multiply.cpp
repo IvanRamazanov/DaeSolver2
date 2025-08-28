@@ -72,6 +72,8 @@ namespace MathPack{
             auto ret = inps[0]->copy();
             clear_node(input);
             if(gains.at(0)==1){
+                // if (ret->type() == FunctionNode)
+                //     qDebug() << "Mul simplify: size"<<cast_node<FuncNode>(ret)->getRank();
                 return ret;
             }else{
                 return make_node<FuncNode>("inv", ret);
@@ -82,7 +84,7 @@ namespace MathPack{
         size_t numOfConsts=0;
         vector<double> inputs(input->getRank());
         vector<int> indxs(input->getRank());
-        for(int i=0; i<input->getRank(); i++){
+        for(size_t i=0; i<input->getRank(); i++){
             if(inps[i]->type() == ConstNode){
                 auto tmpVal = cast_node<Const>(inps[i])->getValue();
                 inputs[numOfConsts] = tmpVal;
@@ -134,6 +136,8 @@ namespace MathPack{
             }
             output=input;
         }
+        // if (output->type() == FunctionNode)
+        //     qDebug() << "Mul simplify: size"<<cast_node<FuncNode>(output)->getRank();
         return output;
 
 //        //expand k*(... + ... +)
@@ -189,17 +193,17 @@ namespace MathPack{
         }
 
         //expand k*(... + ... +)=
-        for(int i=0; i<input->getRank(); i++){
+        for(size_t i=0; i<input->getRank(); i++){
             if(inps[i]->type() == FunctionNode){
                 auto rp = cast_node<FuncNode>(inps[i]);
                 if(rp->getFuncType()==FuncTypes::tSum && gains.at(i)==1){
                     // create k*s1 + k*s2 + ... k*sn
                     vector<node_container<Node>> outInps;
                     vector<int> outGai;
-                    for(int j=0; j<rp->getInputs().size(); j++){
+                    for(size_t j=0; j<rp->getInputs().size(); j++){
                         vector<node_container<Node>> inp;
                         vector<int> gai;
-                        for(int k=0; k<inps.size(); k++){
+                        for(size_t k=0; k<inps.size(); k++){
                             if(k != i){
                                 // etc
                                 inp.push_back(inps.at(k)->copy());
@@ -254,7 +258,7 @@ namespace MathPack{
             vector<node_container<Node>> sub_i;
             vector<int> sub_g;
 
-            for (size_t i=1; root->getRank(); i++){
+            for (size_t i=1; i<root->getRank(); i++){
                 sub_i.push_back(inps[i]->copy());
                 sub_g.push_back(gains[i]);
             }

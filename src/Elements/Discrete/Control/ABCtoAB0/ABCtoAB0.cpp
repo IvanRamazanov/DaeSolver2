@@ -6,7 +6,7 @@ namespace Elements{
         ABCtoAB0::ABCtoAB0(){
             id = "ABCtoAB0";
             name = "abc-ab0";
-            imgPath = ":/src/data/Elements/Discrete/Control/ABCtoAB0.png";
+            setImgPath(":/src/data/Elements/Discrete/Control/ABCtoAB0.png");
             description = "Park transformation from ABC into AlphaBeta0";
 
             inP = addPin("inp", Domains::Input);

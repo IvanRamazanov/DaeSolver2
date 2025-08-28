@@ -8,7 +8,7 @@ namespace Elements{
     SqeezeWave::SqeezeWave(){
         id = "SqeezeWave";
         name = "Squeeze sine wave";
-        imgPath = ":/src/data/Elements/Discrete/Sources/SqeezeWave.png";
+        setImgPath(":/src/data/Elements/Discrete/Sources/SqeezeWave.png");
         description = "This block represents sine wave with linearly increased frequency.";
 
         addPin("val", Domains::Output);

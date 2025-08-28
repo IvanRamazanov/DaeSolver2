@@ -6,7 +6,7 @@ namespace Elements{
     Outport::Outport(){
         id = "Outport";
         name = "Outport";
-        imgPath = ":/src/data/Elements/Discrete/Environment/Outport.png";
+        setImgPath(":/src/data/Elements/Discrete/Environment/Outport.png");
 
         out = addPin("ext", QPointF(0, 0), Domains::MATH.get(), true, Domains::ConnDirection::Output);
         in = addPin("inn", QPointF(0, 15), Domains::MATH.get(), false, Domains::ConnDirection::Input);
@@ -33,6 +33,7 @@ namespace Elements{
     }
 
     void Outport::discreteStep(double time){
+        (void)time;
         std::memcpy(out->data, in->data, out->dataSize*sizeof(double));
     }
 

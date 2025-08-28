@@ -40,7 +40,7 @@ namespace Elements{
                 QWidget::connect(item, &QAction::triggered, [this](){
                     QWidget *st = new QWidget();
                     st->setAttribute(Qt::WA_DeleteOnClose);
-                    QVBoxLayout *root = new QVBoxLayout();
+                    //QVBoxLayout *root = new QVBoxLayout();
                     //auto dr = ((XYGraph*)owner)->parameters.at(0).get();
 
                     // data rate setting
@@ -73,7 +73,7 @@ namespace Elements{
     XYGraph::XYGraph(){
         id = "XYGraph";
         name = id;
-        imgPath = ":src/data/Elements/Discrete/Display/XYGraph.png";
+        setImgPath(":src/data/Elements/Discrete/Display/XYGraph.png");
 
         auto p = addPin("inX", Domains::ConnDirection::Input);
         p->dataSizeSetting = 1;
@@ -98,7 +98,8 @@ namespace Elements{
         cnt=0;
     }
 
-    void XYGraph::discreteStep(double t) {
+    void XYGraph::discreteStep(double time) {
+        (void)time;
         //cnt++;
         //if(cnt==topCnt) {
             dataX.push_back(*inpX);

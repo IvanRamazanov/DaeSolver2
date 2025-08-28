@@ -10,6 +10,6 @@
         <sum>p1;p2</sum>
     </InternalFlow>
     <Equations>
-        <equ>p1.f * f = w.1-w.2</equ>
+        <equ>p1.f * f = p1.p-p2.p</equ>
     </Equations>
 </elem>
