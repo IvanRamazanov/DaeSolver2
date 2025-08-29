@@ -38,6 +38,8 @@ namespace ElementBase{
 
         // for rotation
         setTransformOriginPoint(realSize.width()/2, realSize.height()/2);
+
+        update();
     }
 
 

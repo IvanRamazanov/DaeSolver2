@@ -26,7 +26,6 @@ namespace ElementBase{
         setSystem(oldSys);
 
         // move elements to new subsys
-        auto myScene = _getScene();
         for (auto& e:children){
             // unique ptr already removed from old system
             // just add to new

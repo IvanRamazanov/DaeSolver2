@@ -555,8 +555,7 @@ namespace ElementBase{
         
         _view->moveBy(x, y);
         
-        for (auto& p:pins)
-            p->updatePosition();
+        for(auto& p:pins) p->updatePosition();
     }
 
     void Element::moveTo(double x, double y){
@@ -565,8 +564,7 @@ namespace ElementBase{
         
         _view->setPos(x, y);
         
-        for (auto& p:pins)
-            p->updatePosition();
+        for(auto& p:pins) p->updatePosition();
     }
 
     void Element::moveTo(QPointF p){
@@ -575,8 +573,7 @@ namespace ElementBase{
         
         _view->setPos(p);
         
-        for (auto& p:pins)
-            p->updatePosition();
+        for(auto& p:pins) p->updatePosition();
     }
 
     double Element::getX(){
@@ -754,13 +751,13 @@ namespace ElementBase{
     void Element::rotate(){
         rot = (rot+90)%360;
         _view->setRotation(rot);
-        for (auto& p:pins) p->updatePosition();
+        for(auto& p:pins) p->updatePosition();
     }
 
     void Element::setRotation(int value){
         rot = value;
         _view->setRotation(value);
-        for (auto& p:pins) p->updatePosition();
+        for(auto& p:pins) p->updatePosition();
     }
 
     int Element::getRotation(){

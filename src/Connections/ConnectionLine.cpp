@@ -702,8 +702,9 @@ namespace Connections{
             out.append(line.get());
         }
         out.append(startMarker.get());
-        if(isCrossToCross())
+        if(isCrossToCross()){
             out.append(getEndMarker<Cross*>());
+        }
 
         return out;
     }

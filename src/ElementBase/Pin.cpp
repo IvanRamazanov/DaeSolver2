@@ -25,6 +25,7 @@
 #include "Pin.h"
 #include "../Connections/Wire.h"
 #include <QGraphicsSceneHoverEvent>
+#include <QTimer>
 
 constexpr auto PIN_DIR = "direction";
 constexpr auto ATTR_NAME = "name";
@@ -37,9 +38,12 @@ using Direction = Domains::ConnDirection;
 
 namespace ElementBase{
     PinWidget::PinWidget(Pin *owner): owner(owner){
+        setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
         setSharedRenderer(owner->domain->getPinRenderer());
         setPos(owner->position);
         setCursor(Qt::PointingHandCursor);
+
+        offset = boundingRect().bottomRight()/2; // center point of pin's graphics
 
         // enable D'n'D
         //setAcceptDrops(true);
@@ -83,6 +87,20 @@ namespace ElementBase{
         event->setAccepted(true);
     }
 
+    QVariant PinWidget::itemChange(GraphicsItemChange change, const QVariant &value){
+        if (change == ItemSceneHasChanged && scene()) {
+            QTimer::singleShot(0, [this](){
+                owner->centerPoint->setValue(mapToScene(offset));
+            });
+        }else if(change == ItemPositionHasChanged){
+            owner->centerPoint->setValue(mapToScene(offset));
+        }
+
+        return QGraphicsSvgItem::itemChange(change, value);
+    }
+
+
+
     /**
      * Detects drag'n'drop
      */
@@ -103,12 +121,6 @@ namespace ElementBase{
     }
     /* END */
 
-
-
-    /**
-     * class Pin
-     * @author Ivan
-     */
 
     Pin::Pin(string const& name, Element* owner, QPointF const& pos, Domain *domain, bool is_external, Domains::ConnDirection direction):
         owner(owner),
@@ -135,7 +147,6 @@ namespace ElementBase{
         centerPoint = make_shared<Connections::Property<QPointF>>(pos);
         // graphics
         view = new PinWidget(this);
-        offset = view->boundingRect().bottomRight()/2; // center point of pin's graphics
     }
 
     Pin::Pin(Element* owner, XmlParser::XmlElement *info): 
@@ -176,7 +187,6 @@ namespace ElementBase{
         centerPoint = make_shared<Connections::Property<QPointF>>(position);
         // layout
         view = new PinWidget(this);
-        offset = view->boundingRect().bottomRight()/2; // center point of pin's graphics
     }
 
     void Pin::_plugIn(Connections::LineMarker* marker) {
@@ -188,7 +198,7 @@ namespace ElementBase{
         centerPoint->bind(marker->getBindPoint());
         
         // update position. Initial position will be wrogn because of how the scene is drawn...
-        updatePosition();
+        //updatePosition();
 
         connected = true;
         this->connectedMarker = marker;
@@ -264,7 +274,7 @@ namespace ElementBase{
     }
 
     void Pin::moveCenterTo(QPointF newPos){
-        view->setPos(newPos-offset);
+        view->setPos(newPos-view->offset);
         centerPoint->setValue(newPos);
     }
 
@@ -274,7 +284,7 @@ namespace ElementBase{
     void Pin::dragDetected(QPointF const& pos){
         if (connectedMarker == nullptr) {
             // update position. Initial position will be wrogn because of how the scene is drawn...
-            updatePosition();
+            //updatePosition();
             // create wire
             auto sys = is_external ? owner->getSystem()->getSystem() : owner->getSystem();
             Connections::WireCluster* wire = sys->addWire(domain);
@@ -298,7 +308,7 @@ namespace ElementBase{
     }
 
     void Pin::updatePosition(){
-        centerPoint->setValue(view->mapToScene(offset));
+        centerPoint->setValue(view->mapToScene(view->offset));
     }
 
 }

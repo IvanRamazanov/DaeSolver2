@@ -427,10 +427,6 @@ namespace Connections{
         }
         for(auto& ctcl:ContContList){
             out.append(ctcl->getView());
-            // Connline view doesn't include end marker (Cross)
-            // so add maually
-            Cross *c = ctcl->getEndMarker<Cross*>();
-            out.append(c);
         }
 
         return out;

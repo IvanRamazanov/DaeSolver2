@@ -18,6 +18,7 @@ namespace ElementBase{
 
         private:
             Pin* owner;
+            QPointF offset;
 
         protected:
             // drag'n'drop
@@ -32,6 +33,7 @@ namespace ElementBase{
             virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
             //virtual void dragEnterEvent(QGraphicsSceneDragDropEvent *event) override;
             //virtual void dragLeaveEvent(QGraphicsSceneDragDropEvent *event) override;
+            virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
         friend class Pin;
     };
@@ -45,7 +47,7 @@ namespace ElementBase{
             bool connected = false,
                 is_external = false,
                 is_hidden = false; // primarily for compount elements to hide internal connections
-            QPointF offset, position; // pos offset (local)
+            QPointF position;
 
         protected:
             Domains::Domain* domain;
