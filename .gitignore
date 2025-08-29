@@ -1,6 +1,7 @@
-build/
-release/
-debug/
+/build/
+/release/
+/debug/
+/tests/build/
 
 Makefile*
 .qmake.stash

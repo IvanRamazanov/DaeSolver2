@@ -259,12 +259,6 @@ namespace MathPack{
             }
         }
 
-        // if after all the cleaning this node self "destruct", return const 0 (sum of nothing is 0)
-        if(inps.empty()){
-            clear_node(input);
-            return make_node<Const>(0);
-        }
-
         //convert -1*k=-k
         for(size_t i=0; i<input->getRank(); i++){
             if(inps[i]->type() == FunctionNode){
@@ -304,32 +298,32 @@ namespace MathPack{
         }
         if(numOfConsts==inps.size()){
             output = make_node<Const>(Evaluate(gains, inputs));
-            clear_node(input);
-        }else if(inps.size()==1){
-            if(gains.at(0) == 1){
-                output = inps[0]->copy();
-                clear_node(input);
-            }else{
-                output = input;
-            }
-        }else if(numOfConsts==1){
-            if(cast_node<Const>(inps.at(indxs[0]))->getValue() == 0.0){
-                // ... + 0.0; remove
-                input->removeInp(indxs[0]);
-            }
-            output = input;
+            clear_node(input); 
         }else{
+            // combine all consts into one
             double val=0;
             for(size_t i=0; i<numOfConsts; i++){
                 val += gains.at(indxs[i])*inputs[i];
             }
+            // if combined value == 0 -> ignore
             if(val != 0.0){
                 input->addOperand(make_node<Const>(val), 1);
             }
             for(size_t i=numOfConsts; i-->0;){
                 input->removeInp(indxs[i]);
             }
-            output = input;
+
+            if(inps.size()==1){
+                if(gains.at(0) == 1){
+                    output = inps[0];
+                    input->setInput(nullptr, 0);
+                    clear_node(input);
+                }else{
+                    output = make_node<FuncNode>("*", vector<node_container<Node>>({make_node<Const>(-1), inps[0]}))->simplify();
+                    input->setInput(nullptr, 0);
+                }
+            }else
+                output = input;
         }
 
         return output;

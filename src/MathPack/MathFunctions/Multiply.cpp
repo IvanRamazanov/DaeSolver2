@@ -68,18 +68,6 @@ namespace MathPack{
             }
         }
 
-        if(inps.size()==1){
-            auto ret = inps[0]->copy();
-            clear_node(input);
-            if(gains.at(0)==1){
-                // if (ret->type() == FunctionNode)
-                //     qDebug() << "Mul simplify: size"<<cast_node<FuncNode>(ret)->getRank();
-                return ret;
-            }else{
-                return make_node<FuncNode>("inv", ret);
-            }
-        }
-
         // decrease consts
         size_t numOfConsts=0;
         vector<double> inputs(input->getRank());
@@ -98,44 +86,37 @@ namespace MathPack{
         }
         if(numOfConsts==inps.size()){
             output = make_node<Const>(Evaluate(gains, inputs));
-            clear_node(input);
-        }else if(inps.size()==1){
-            if(gains.at(0)==1){
-                output = inps[0]->copy();
-                clear_node(input);
-            }else{
-                output = input;
-            }
-        }else if(numOfConsts==1){
-            if(cast_node<Const>(inps.at(indxs[0]))->getValue() == 1.0){
-                input->removeInp(indxs[0]);
-            }
-
-            if(inps.size()>1)
-                output=input;
-            else{
-                // removed const, and only one arg left
-                if(gains.at(0)==1){
-                    output = inps.at(0)->copy();
-                    clear_node(input);
-                }else{
-                    output = make_node<FuncNode>("inv", inps.at(0)->copy());
-                    clear_node(input);
-                }
-            }
+            clear_node(input); 
         }else{
+            // combine all consts into one
             double val=1;
             for(size_t i=0; i<numOfConsts; i++){
                 val *= pow(inputs[i], gains.at(indxs[i]));
             }
+            // if combined value == 1 -> ignore
             if(val != 1.0){
                 input->addOperand(make_node<Const>(val), 1);
             }
             for(size_t i=numOfConsts; i-->0;){
                 input->removeInp(indxs[i]);
             }
-            output=input;
-        }
+
+            if(inps.size()==1){
+                if(gains.at(0)==1){
+                    // if (ret->type() == FunctionNode)
+                    //     qDebug() << "Mul simplify: size"<<cast_node<FuncNode>(ret)->getRank();
+                    output = inps[0];
+                    input->setInput(nullptr, 0);
+                    clear_node(input);
+                }else{
+                    //output = make_node<FuncNode>("inv", inps[0]);
+                    //input->setInput(nullptr, 0);
+                    output = input;
+                }
+            }else
+                output = input;
+        }        
+
         // if (output->type() == FunctionNode)
         //     qDebug() << "Mul simplify: size"<<cast_node<FuncNode>(output)->getRank();
         return output;
