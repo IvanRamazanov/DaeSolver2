@@ -480,9 +480,9 @@ namespace ElementBase{
         return system;
     }
 
-    Pin* Element::_addPin(string const& name, Domain *dom, bool isExternal, Direction direction){
+    Pin* Element::_addPin(string const& name, Domain *dom, bool isExternal, Direction direction, bool cached){
         try{
-            auto np = make_shared<Pin>(name, this, QPointF(), dom, isExternal, direction);
+            auto np = make_shared<Pin>(name, this, QPointF(), dom, isExternal, direction, cached);
             pins.push_back(np);
 
             // append workspace
@@ -495,8 +495,8 @@ namespace ElementBase{
         }
     }
 
-    Pin* Element::addPin(string const& name, QPointF const& pinPos, Domain *dom, bool isExternal, Direction direction){
-        Pin *ret = _addPin(name, dom, isExternal, direction);
+    Pin* Element::addPin(string const& name, QPointF const& pinPos, Domain *dom, bool isExternal, Direction direction, bool cached){
+        Pin *ret = _addPin(name, dom, isExternal, direction, cached);
         if(ret){
             ret->moveCenterTo(pinPos);
         }
@@ -505,7 +505,7 @@ namespace ElementBase{
     }
 
     Pin* Element::addPin(string const& name, Direction direction){
-        Pin *ret = _addPin(name, Domains::MATH.get(), false, direction);
+        Pin *ret = _addPin(name, Domains::MATH.get(), false, direction, false);
         if(ret){
             alignPin(ret, direction==Domains::Input);
         }

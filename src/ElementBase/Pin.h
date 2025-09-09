@@ -69,7 +69,15 @@ namespace ElementBase{
             virtual void dragDetected(QPointF const& pos);
 
         public:
-            Pin(string const& name, Element* owner, QPointF const& pos, Domains::Domain *domain, bool is_external=false, Domains::ConnDirection direction=Domains::Uni);
+            Pin(
+                string const& name,
+                Element* owner,
+                QPointF const& pos,
+                Domains::Domain *domain,
+                bool is_external=false,
+                Domains::ConnDirection direction=Domains::Uni,
+                bool cached=false
+            );
             Pin(Element* owner, XmlParser::XmlElement *info);
             ~Pin();
 

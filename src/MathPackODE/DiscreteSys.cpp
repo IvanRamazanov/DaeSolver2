@@ -52,7 +52,7 @@ namespace dae_solver{
                 bool isAlgLoop = true;
                 for (size_t j=i; j<elemChain->chainBreaks.size(); j++){
                     // if has at least one break - it's not a loop
-                    if (elemChain->chainBreaks[i]){
+                    if (elemChain->chainBreaks[j]){
                         isAlgLoop = false;
                         break;
                     }

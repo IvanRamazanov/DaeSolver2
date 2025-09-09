@@ -122,13 +122,14 @@ namespace ElementBase{
     /* END */
 
 
-    Pin::Pin(string const& name, Element* owner, QPointF const& pos, Domain *domain, bool is_external, Domains::ConnDirection direction):
+    Pin::Pin(string const& name, Element* owner, QPointF const& pos, Domain *domain, bool is_external, Domains::ConnDirection direction, bool cached):
         owner(owner),
         name(name),
         is_external(is_external),
         position(pos),
         domain(domain),
-        connector(domain->getConnector(name))
+        connector(domain->getConnector(name)),
+        is_cached(cached)
     {
         // validate
         if (domain->directional){
@@ -168,8 +169,8 @@ namespace ElementBase{
         }
 
         // chache
-        if (info->attributes.contains("chached")){
-            is_cached = XmlParser::stob(info->attributes["chached"]);
+        if (info->attributes.contains("cached")){
+            is_cached = XmlParser::stob(info->attributes["cached"]);
         }
 
         // pass through

@@ -124,7 +124,13 @@ namespace ElementBase{
 
 
         private:
-            Pin* _addPin(string const& name, Domains::Domain *dom, bool isExternal, Domains::ConnDirection direction);
+            Pin* _addPin(
+                        string const& name,
+                        Domains::Domain *dom,
+                        bool isExternal,
+                        Domains::ConnDirection direction,
+                        bool cached
+                    );
 
         protected:
             Element();
@@ -142,7 +148,14 @@ namespace ElementBase{
             void addInitValue(XmlParser::XmlElement *info, WorkSpace::DifferentialVar *var);
             void addInitValue(string const& name, string const& title, vector<double> const& value, WorkSpace::DifferentialVar *var);
 
-            Pin* addPin(string const& name, QPointF const& pinPos, Domains::Domain *dom, bool isExternal=false, Domains::ConnDirection direction=Domains::Uni);
+            Pin* addPin(
+                        string const& name,
+                        QPointF const& pinPos,
+                        Domains::Domain *dom,
+                        bool isExternal=false,
+                        Domains::ConnDirection direction=Domains::Uni,
+                        bool cached=false
+                    );
             Pin* addPin(string const& name, Domains::ConnDirection direction);
             void alignPin(Pin *pin, bool leftSide);
 

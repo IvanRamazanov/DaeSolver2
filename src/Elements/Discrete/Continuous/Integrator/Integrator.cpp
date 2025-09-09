@@ -7,7 +7,7 @@ namespace Elements{
         setImgPath(":src/data/Elements/Discrete/Continuous/Integrator.png");
         description = "This block represents an ideal integration unit.";
         
-        inP = addPin("in", QPointF(0, 19), Domains::MATH.get(), false, Domains::Input);
+        inP = addPin("in", QPointF(0, 19), Domains::MATH.get(), false, Domains::Input, true);
         addPin("out", QPointF(33, 19), Domains::MATH.get(), false, Domains::Output);
 
         X = workspace.get("in");

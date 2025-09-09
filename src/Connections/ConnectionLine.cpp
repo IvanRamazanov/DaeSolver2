@@ -14,7 +14,7 @@ using Direction = Domains::ConnDirection;
 constexpr double ZERO_LINE_EPS = 1;
 constexpr auto CL_POSITIONS_TAG = "Constraints";
 bool hasZeroLength(QLineF const& line){
-    return line.dx() < ZERO_LINE_EPS && line.dy() < ZERO_LINE_EPS;
+    return abs(line.dx()) < ZERO_LINE_EPS && abs(line.dy()) < ZERO_LINE_EPS;
 }
 
 namespace Connections{
@@ -584,7 +584,7 @@ namespace Connections{
 
         if (lines.size() >= 3){
             // reduce near zero lines
-            if (hasZeroLength(preLine)){
+            if (lineIdx > 1 && hasZeroLength(preLine)){
                 bool hasPrePre = lineIdx-1 != 0; // has line at idx: -2 
                 // adjust start position (to match exactly)
                 if (hasPrePre){
@@ -626,7 +626,7 @@ namespace Connections{
 
                 return;
             }else
-            if (hasZeroLength(aftLine)){
+            if (lines.size()-2 != lineIdx && hasZeroLength(aftLine)){
                 bool hasAftAft = lineIdx+2 < lines.size(); // has line at idx: +2 
                 // adjust end position (to match exactly)
                 if (hasAftAft){
